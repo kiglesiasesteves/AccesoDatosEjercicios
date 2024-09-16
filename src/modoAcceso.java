@@ -123,7 +123,7 @@ public class modoAcceso {
      * @param file Objeto File que representa el archivo o directorio.
      * @return {@code true} si el permiso de escritura fue modificado con éxito; {@code false} si no.
      */
-    private static boolean mescritura(File file) {
+    public  boolean mescritura(File file) {
         return file.setWritable(true);
     }
 }
