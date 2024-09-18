@@ -1,13 +1,12 @@
 import java.io.File;
 
 /**
- * La clase mostrarContido proporciona un método para listar y mostrar los nombres de los archivos y subdirectorios
+ * La clase MostrarContido proporciona un método para listar y mostrar los nombres de los archivos y subdirectorios
  * contenidos en un directorio especificado. Verifica si la ruta proporcionada es un directorio antes de intentar listar
  * su contenido.
  */
 public class mostrarContido {
-    // Array para almacenar los nombres de los archivos y subdirectorios en el directorio
-    String[] files = null;
+    static String notDirectory = "A ruta especificada non é un directorio";
 
     /**
      * Muestra el contenido de un directorio especificado, imprimiendo los nombres de todos los archivos y subdirectorios
@@ -15,18 +14,29 @@ public class mostrarContido {
      *
      * @param dirName Ruta del directorio cuyo contenido se desea mostrar.
      */
-    public void mContido(String dirName) {
+    public void mostrarContenido(String dirName) {
         File dir = new File(dirName);
         if (dir.isDirectory()) {
-            files = dir.list();
-            // Verifica que el array de archivos no sea nulo
-            assert files != null;
-            // Imprime los nombres de los archivos y subdirectorios
-            for (String file : files) {
-                System.out.println(file);
-            }
+            recorrerDirectorio(dir);
         } else {
-            System.out.println("A ruta especificada non é un directorio");
+            System.out.println(notDirectory);
+        }
+    }
+
+    /**
+     * Método recursivo para mostrar todos los subdirectorios y archivos de un directorio.
+     *
+     * @param dir El directorio cuyo contenido se desea listar.
+     */
+    private void recorrerDirectorio(File dir) {
+        File[] archivos = dir.listFiles();
+        if (archivos != null) {
+            for (File archivo : archivos) {
+                System.out.println(archivo.getPath());
+                if (archivo.isDirectory()) {
+                    recorrerDirectorio(archivo);  // Llamada recursiva para subdirectorios
+                }
+            }
         }
     }
 }

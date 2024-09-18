@@ -5,7 +5,6 @@ import java.io.IOException;
  * La clase CreacionDirArch proporciona métodos para la creación de directorios y archivos
  * en el sistema de archivos. Verifica si los directorios y archivos existen antes de crearlos,
  * y maneja posibles errores durante las operaciones.
- *
  * Los mensajes de éxito o error están definidos como constantes de clase.
  */
 public class CreacionDirArch {
@@ -26,7 +25,7 @@ public class CreacionDirArch {
      * @param cadea Ruta del directorio que se desea crear.
      */
     public void CreaDir(String cadea) {
-        File file = new File(cadea);
+        File file = getDirectory(cadea);
         if (ComprobarDirectorio(file)) {
             System.out.println(existeDir);
         } else {
@@ -36,6 +35,10 @@ public class CreacionDirArch {
                 System.out.println(errorCreacionDir);
             }
         }
+    }
+
+    private static File getDirectory(String cadea) {
+        return new File(cadea);
     }
 
     /**
@@ -66,9 +69,9 @@ public class CreacionDirArch {
      * @param fileName Nombre del archivo que se desea crear.
      */
     public void creaFicheiro(String dirName, String fileName) {
-        File dir = new File(dirName);
+        File dir = getDirectory(dirName);
         if (dir.isDirectory()) {
-            File file = new File(dir, fileName);
+            File file = getFile(fileName, dir);
             if (!file.exists()) {
                 creacionFichero(file);
             } else {
@@ -79,6 +82,10 @@ public class CreacionDirArch {
         }
     }
 
+    private static File getFile(String fileName, File dir) {
+        return new File(dir, fileName);
+    }
+
     /**
      * Crea el archivo especificado. Si la creación tiene éxito, muestra un mensaje de éxito.
      * Si ocurre un error, muestra un mensaje de error.
@@ -87,11 +94,9 @@ public class CreacionDirArch {
      */
     private void creacionFichero(File file) {
         try {
-            if (file.createNewFile()) {
+            file.createNewFile();
                 System.out.println(CreacionArchivo);
-            } else {
-                System.out.println(errorCreacionArch);
-            }
+
         } catch (IOException e) {
             System.out.println("Erro ao crear o ficheiro: " + e.getMessage());
         }

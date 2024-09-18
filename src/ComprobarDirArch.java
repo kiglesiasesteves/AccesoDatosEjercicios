@@ -19,7 +19,7 @@ public class ComprobarDirArch {
      * @param cadea Ruta del archivo o directorio a comprobar.
      */
     public void eDirectorio(String cadea) {
-        File file = new File(cadea);
+        File file = getFile(cadea);
         if (isDirectory(file)) {
             printDirectorio(trueDir);
         } else {
@@ -53,12 +53,17 @@ public class ComprobarDirArch {
      * @param cadea Ruta del archivo o directorio a comprobar.
      */
     public void eArchivo(String cadea) {
-        File file = new File(cadea);
+        File file = getFile(cadea);
         if (isFile(file)) {
             printArchivo(trueFile);
         } else {
             printArchivo(falseFile);
         }
+    }
+
+    private static File getFile(String cadea) {
+        File file = new File(cadea);
+        return file;
     }
 
     /**
